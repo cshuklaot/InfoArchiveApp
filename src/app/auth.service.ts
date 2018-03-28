@@ -2,15 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { HttpRequest } from 'selenium-webdriver/http';
 import { AuthInfo } from './AuthInfo';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map'
 @Injectable()
 export class AuthService {
-  
-  public auth: AuthInfo;
-  
-  constructor(private http: HttpClient) { }  
-  
+  constructor(private http: HttpClient) { }
+
   login(username: string, password: string) {
-    console.log('15' + JSON.stringify(this.auth));
     let params = new URLSearchParams();
     params.set('grant_type', 'password');
     params.set('username', username);
@@ -23,10 +21,21 @@ export class AuthService {
         'Content-Type': 'application/x-www-form-urlencoded',
       })
     };
-    this.http.post<any>('/login', params.toString(), httpHeaderOptions).
-    subscribe(
-      auth=> this.auth = auth
-       );
-    return this.auth;
+    return this.http.post<AuthInfo>
+    ('/login', params.toString(), httpHeaderOptions)
+    .map(auth => {
+         localStorage.setItem('currentUser', JSON.stringify(auth));
+  });   
   }
+
+  logout() {
+    localStorage.removeItem('currentUser');
+}
+
+  getServiceAuthString()
+  {
+    let auth:AuthInfo= JSON.parse(localStorage.getItem('currentUser'));
+    return auth.getLoginToken;
+  }
+
 }

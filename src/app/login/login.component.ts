@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import {AuthService} from '../auth.service';
+import { AuthService } from '../auth.service';
+import { AuthInfo } from '../AuthInfo';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-login',
@@ -16,15 +18,24 @@ export class LoginComponent implements OnInit {
   loading = false;
   returnUrl: string;
 
-  constructor(private authService:AuthService ) {
-
+  constructor(private authService: AuthService,
+    private route: ActivatedRoute,
+    private router: Router, ) {
+    this.authService.logout();
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
   }
+  
   login() {
-    let auth=this.authService.login(this.model.username, this.model.password);
-    console.log(JSON.stringify(this.authService.auth));
+    this.loading = true;
+    this.authService.login(this.model.username, this.model.password).subscribe(
+      data => {
+        this.router.navigate([this.returnUrl]);
+    },
+    error => {
+        this.loading = false;
+    });
   }
   ngOnInit() {
-
   }
 
 
