@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {AuthService} from './auth.service';
 import { AppRouterModule } from './/app-router.module';
+import { AuthGuardGuard } from './guard/auth-guard.guard';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { AppRouterModule } from './/app-router.module';
     AppRouterModule
     
 ],
-  providers: [AuthService],
+  providers: [AuthService,
+    AuthGuardGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
