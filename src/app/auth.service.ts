@@ -32,10 +32,6 @@ export class AuthService {
     localStorage.removeItem('currentUser');
 }
 
-  getServiceAuthString()
-  {
-    let auth:AuthInfo= JSON.parse(localStorage.getItem('currentUser'));
-    return auth.getLoginToken;
-  }
+  
 
 }

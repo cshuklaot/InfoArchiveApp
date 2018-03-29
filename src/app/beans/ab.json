@@ -1,0 +1,69 @@
+"_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/restapi/systemdata/tenants/f96e7d62-05cc-4dd0-a454-34386ae59315"
+        },
+        "http://identifiers.emc.com/groups" : {
+          "href" : "http://localhost:8080/restapi/systemdata/tenants/f96e7d62-05cc-4dd0-a454-34386ae59315/groups"
+        },
+        "http://identifiers.emc.com/applications" : {
+          "href" : "http://localhost:8080/restapi/systemdata/tenants/f96e7d62-05cc-4dd0-a454-34386ae59315/applications"
+        },
+        "http://identifiers.emc.com/application-categories" : {
+          "href" : "http://localhost:8080/restapi/systemdata/tenants/f96e7d62-05cc-4dd0-a454-34386ae59315/application-categories"
+        },
+        "http://identifiers.emc.com/export-configurations" : {
+          "href" : "http://localhost:8080/restapi/systemdata/tenants/f96e7d62-05cc-4dd0-a454-34386ae59315/export-configurations"
+        },
+        "http://identifiers.emc.com/export-pipelines" : {
+          "href" : "http://localhost:8080/restapi/systemdata/tenants/f96e7d62-05cc-4dd0-a454-34386ae59315/export-pipelines"
+        },
+        "http://identifiers.emc.com/export-transformations" : {
+          "href" : "http://localhost:8080/restapi/systemdata/tenants/f96e7d62-05cc-4dd0-a454-34386ae59315/export-transformations"
+        },
+        "http://identifiers.emc.com/custom-presentation-configurations" : {
+          "href" : "http://localhost:8080/restapi/systemdata/tenants/f96e7d62-05cc-4dd0-a454-34386ae59315/custom-presentation-configurations"
+        },
+        "http://identifiers.emc.com/retention-policies" : {
+          "href" : "http://localhost:8080/restapi/systemdata/tenants/f96e7d62-05cc-4dd0-a454-34386ae59315/retention-policies"
+        },
+        "http://identifiers.emc.com/retention-policy-categories" : {
+          "href" : "http://localhost:8080/restapi/systemdata/tenants/f96e7d62-05cc-4dd0-a454-34386ae59315/retention-policy-categories"
+        },
+        "http://identifiers.emc.com/events" : {
+          "href" : "http://localhost:8080/restapi/systemdata/tenants/f96e7d62-05cc-4dd0-a454-34386ae59315/events"
+        },
+        "http://identifiers.emc.com/holds" : {
+          "href" : "http://localhost:8080/restapi/systemdata/tenants/f96e7d62-05cc-4dd0-a454-34386ae59315/holds"
+        },
+        "http://identifiers.emc.com/conditions" : {
+          "href" : "http://localhost:8080/restapi/systemdata/tenants/f96e7d62-05cc-4dd0-a454-34386ae59315/conditions"
+        },
+        "http://identifiers.emc.com/audits" : {
+          "href" : "http://localhost:8080/restapi/systemdata/tenants/f96e7d62-05cc-4dd0-a454-34386ae59315/audits"
+        },
+        "http://identifiers.emc.com/audit-event-types" : {
+          "href" : "http://localhost:8080/restapi/systemdata/tenants/f96e7d62-05cc-4dd0-a454-34386ae59315/audit-event-types"
+        },
+        "http://identifiers.emc.com/audit-constants" : {
+          "href" : "http://localhost:8080/restapi/systemdata/tenants/f96e7d62-05cc-4dd0-a454-34386ae59315/audit-constants"
+        },
+        "http://identifiers.emc.com/my-orders-items" : {
+          "href" : "http://localhost:8080/restapi/systemdata/tenants/f96e7d62-05cc-4dd0-a454-34386ae59315/order-items"
+        },
+        "http://identifiers.emc.com/delete" : {
+          "href" : "http://localhost:8080/restapi/systemdata/tenants/f96e7d62-05cc-4dd0-a454-34386ae59315"
+        },
+        "http://identifiers.emc.com/metrics" : {
+          "href" : "http://localhost:8080/restapi/systemdata/tenants/f96e7d62-05cc-4dd0-a454-34386ae59315/metrics"
+        },
+        "http://identifiers.emc.com/xquery-modules" : {
+          "href" : "http://localhost:8080/restapi/systemdata/tenants/f96e7d62-05cc-4dd0-a454-34386ae59315/xquery-modules"
+        },
+        "http://identifiers.emc.com/matters" : {
+          "href" : "http://localhost:8080/restapi/systemdata/tenants/f96e7d62-05cc-4dd0-a454-34386ae59315/matters"
+        },
+        "http://identifiers.emc.com/configuration" : {
+          "href" : "http://localhost:8080/restapi/systemdata/tenants/f96e7d62-05cc-4dd0-a454-34386ae59315/configuration"
+        }
+      }
+    
