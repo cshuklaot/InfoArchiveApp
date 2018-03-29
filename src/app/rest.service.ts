@@ -25,7 +25,7 @@ export class RestService {
     return auth.token_type + ' ' + auth.access_token;
   }
   dopost(url: string, payload: any) {
-    return this.execute(this.http.post(url, payload, { headers: this.headers }),url);
+    return this.execute(this.http.post(url, payload, { headers: this.headers }),url).subscribe();
   }
   doGet(url: string) {
     return this.execute(this.http.get(url, { headers: this.headers }),url);
@@ -57,4 +57,17 @@ export class RestService {
       return of(result as T);
     };
   }
+  fileUpload(fileItem:File, extraData?:object):any
+    {
+      console.log(extraData);
+      let apiCreateEndpoint = 'upload/store/'
+      const formData: FormData = new FormData();
+      formData.append('files', fileItem, fileItem.name);
+      if (extraData) {
+       
+          formData.append("extraField", JSON.stringify(extraData));
+        
+      }
+      return this.dopost(apiCreateEndpoint,formData)
+    }
 }

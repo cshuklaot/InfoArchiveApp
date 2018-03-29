@@ -4,7 +4,6 @@ import { MapOperator } from 'rxjs/operators/map';
 import { tanent } from '../beans/tanent';
 import { application } from '../beans/application';
 import { holding } from '../beans/holding';
-import { FileUploadService } from '../file-upload.service';
 const APPLICATION_KEY='http://identifiers.emc.com/applications';
 const HOLDINGS_KEY='http://identifiers.emc.com/holdings';
 @Component({
@@ -22,8 +21,7 @@ export class DashboardComponent implements OnInit {
   public loading:boolean=false;
   fileToUpload: File  = null;
   constructor(
-    private restService: RestService,
-    private fileuploadService:FileUploadService) { }
+    private restService: RestService) { }
 
   ngOnInit() {
     this.getTanents();
@@ -79,14 +77,12 @@ export class DashboardComponent implements OnInit {
   
   upload() {
     this.loading=true;
-     this.fileuploadService.fileUpload(this.fileToUpload,{
+    this.restService.fileUpload(this.fileToUpload,{
       'tanent':this.selectedTanent.name,
       'application':this.selectedApplication.name,
       'holding':this.selectedHolding.name      
-    }).subscribe(
-      error=>{
-          console.log("Server error")
-      });;
+    });
+
   }
   clean(array:Array<any>)
   {
