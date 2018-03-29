@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
+import { FileUploadService } from './file-upload.service';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -30,7 +30,7 @@ import { RestService } from './rest.service';
 
   providers: [AuthService,
     RestService,
-    AuthGuardGuard,
+    AuthGuardGuard,FileUploadService
   ],
   bootstrap: [AppComponent],
 })

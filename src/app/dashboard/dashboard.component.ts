@@ -4,6 +4,7 @@ import { MapOperator } from 'rxjs/operators/map';
 import { tanent } from '../beans/tanent';
 import { application } from '../beans/application';
 import { holding } from '../beans/holding';
+import { FileUploadService } from '../file-upload.service';
 const APPLICATION_KEY='http://identifiers.emc.com/applications';
 const HOLDINGS_KEY='http://identifiers.emc.com/holdings';
 @Component({
@@ -19,7 +20,10 @@ export class DashboardComponent implements OnInit {
   private selectedApplication: application;
   private selectedHolding:holding;
   public loading:boolean=false;
-  constructor(private restService: RestService) { }
+  fileToUpload: File  = null;
+  constructor(
+    private restService: RestService,
+    private fileuploadService:FileUploadService) { }
 
   ngOnInit() {
     this.getTanents();
@@ -69,16 +73,28 @@ export class DashboardComponent implements OnInit {
     this.selectedApplication = app;
     this.getHolding();
   }
-  setNewHolding(app: any) {
-    this.selectedApplication = app;
+  setNewHolding(holding: any) {
+    this.selectedHolding = holding;
   }
   
   upload() {
     this.loading=true;
-    console.log('loading called');
+     this.fileuploadService.fileUpload(this.fileToUpload,{
+      'tanent':this.selectedTanent.name,
+      'application':this.selectedApplication.name,
+      'holding':this.selectedHolding.name      
+    }).subscribe(
+      error=>{
+          console.log("Server error")
+      });;
   }
   clean(array:Array<any>)
   {
     return array.splice(0,array.length);
   }
+  handleFileInput(files: FileList) {
+    let fileItem = files.item(0);
+    console.log("file input has changed. The file is", fileItem)
+    this.fileToUpload = fileItem;
+}
 }

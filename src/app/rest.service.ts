@@ -25,25 +25,26 @@ export class RestService {
     return auth.token_type + ' ' + auth.access_token;
   }
   dopost(url: string, payload: any) {
-    return this.http.post(url, payload, { headers: this.headers }).pipe(
-      tap(_ => console.log(`request to url=${url} was successful`)),
-      catchError(this.handleError(`request to url=${url} was failed`))
-    );
+    return this.execute(this.http.post(url, payload, { headers: this.headers }),url);
   }
   doGet(url: string) {
-    return this.http.get(url, { headers: this.headers }).pipe(
-      tap(_ => console.log(`request to url=${url} was successful`)),
+    return this.execute(this.http.get(url, { headers: this.headers }),url);
+  }
+
+  execute(observable:Observable<any>,url:string='')
+  {
+   return observable.pipe(
+      tap(_obj => console.log(`request to url=${url} was successful`)),
       catchError(this.handleError(`request to url=${url} was failed`))
     );
   }
-
   /**
 * Handle Http operation that failed.
 * Let the app continue.
 * @param operation - name of the operation that failed
 * @param result - optional value to return as the observable result
 */
-  private handleError<T>(operation = 'operation', result?: T) {
+  public handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 
       // TODO: send the error to remote logging infrastructure
