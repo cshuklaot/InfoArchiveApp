@@ -1,19 +1,19 @@
-<div class="form-group" >
+<div class="form-group" [formGroup]="form">
   <label for="{{inputmodel.name}}">{{inputmodel.name}}</label>
   <label for="{{inputmodel.type}}">{{inputmodel.type}}</label>
-  <div *ngIf="inputmodel.type==='date'">
-    <input type="date" name='{{inputmodel.name}}' class="form-control"/>
+  <div *ngIf="inputmodel.type==='date'" ng-form=formdata.name [formGroup]="form"> 
+    <input type="date" name='{{inputmodel.name}}' class="form-control"  [formControlName]="inputmodel.name"/>
   </div>
   <div *ngIf="inputmodel.type==='dateTime'">
-    <input type="datetime-local" name='{{inputmodel.name}}' class="form-control"/>
+    <input type="datetime-local" name='{{inputmodel.name}}' class="form-control"  [formControlName]="inputmodel.name"/>
   </div>
   <div *ngIf="inputmodel.type==='positiveInteger' || inputmodel.type==='long' || inputmodel.type==='integer' ">
-    <input type='number' name={{inputmodel.name}}  class="form-control" />
+    <input type='number' name={{inputmodel.name}}  class="form-control"  [formControlName]="inputmodel.name"/>
   </div>
   <div *ngIf="inputmodel.type==='normalizedString'  || inputmodel.type==='string' || inputmodel.type==='anyURI'|| inputmodel.type==='NCName' ">
-    <input  name="{{inputmodel.name}}" class="form-control" />
+    <input  name="{{inputmodel.name}}" class="form-control"  [formControlName]="inputmodel.name" />
   </div>
   <div *ngIf="inputmodel.type==='boolean'">
-    <input  name="{{inputmodel.name}}" type="checkbox"   class="form-control" />
+    <input  name="{{inputmodel.name}}" type="checkbox"   class="form-control"  [formControlName]="inputmodel.name" />
   </div>
 </div>

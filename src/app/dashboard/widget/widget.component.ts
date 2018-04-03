@@ -1,5 +1,6 @@
 import { Component, OnInit ,Input} from '@angular/core';
 import { InputDataModel } from '../../beans/InputDataModel';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-widget',
@@ -11,5 +12,6 @@ export class WidgetComponent  {
   constructor() { }
 
   @Input() inputmodel: InputDataModel;
+  @Input() form: FormGroup;
 
 }

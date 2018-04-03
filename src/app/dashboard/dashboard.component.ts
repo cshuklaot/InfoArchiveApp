@@ -7,6 +7,10 @@ import { holding } from '../beans/holding';
 import { restObject } from '../beans/restObject';
 import { InputDataModel } from '../beans/InputDataModel';
 import { returnModel } from '../beans/returnModel';
+import { NgModule } from '@angular/core';
+import { NgForm, Validators } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
+
 const APPLICATION_KEY = 'http://identifiers.emc.com/applications';
 const HOLDINGS_KEY = 'http://identifiers.emc.com/holdings';
 const SCHEMA_URL_KEY = 'http://identifiers.emc.com/pdi-schemas';
@@ -22,14 +26,22 @@ export class DashboardComponent implements OnInit {
   public tanents: tanent[] = [];
   public appliactions: application[] = [];
   public holdings: holding[] = [];
-  public datamodel:returnModel;
+  public datamodel: returnModel;
   private selectedTanent: tanent;
   private selectedApplication: application;
   private selectedHolding: holding;
   public loading: boolean = false;
   fileToUpload: File = null;
+  public form: FormGroup;
   constructor(
-    private restService: RestService) { }
+    private restService: RestService) {
+
+    this.form = new FormGroup({
+      tanent: new FormControl('', <any>Validators.required),
+      application: new FormControl('', <any>Validators.required),
+      holding: new FormControl('', <any>Validators.required)
+    });
+  }
 
   ngOnInit() {
     this.getTanents();
@@ -108,6 +120,7 @@ export class DashboardComponent implements OnInit {
                       this.restService.dopost("/parse/schema", formData).subscribe(
                         (app: any) => {
                           this.datamodel = app;
+                          this.refreshFormGroup();
                         })
                     },
                   )
@@ -118,6 +131,13 @@ export class DashboardComponent implements OnInit {
       );
     console.log(pdiSchemas);
   }
+  refreshFormGroup() {
+    this.datamodel.simpleModels.forEach
+      (simple => {
+        this.form.addControl(simple.name, new FormControl(simple.name, <any>Validators));
+      })
+    }
+
   getRestChildObject(rest: restObject, key: String) {
     return this.restService.doGet(rest.map.get(key).replace(/^(?:\/\/|[^\/]+)*\//, ""));
   }
@@ -125,7 +145,8 @@ export class DashboardComponent implements OnInit {
   getcontent(rest: restObject, key: String) {
     return this.restService.getBinary(rest.map.get(key).replace(/^(?:\/\/|[^\/]+)*\//, ""));
   }
-  upload() {
+  upload(form: NgForm) {
+    console.log(this.form.value);
     this.loading = true;
     this.restService.fileUpload(this.fileToUpload, {
       'tanent': this.selectedTanent.name,
