@@ -22,6 +22,12 @@
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true
+  },
+  "/parse/*": {
+    "target": "http://localhost:8888",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
   }
   
 }

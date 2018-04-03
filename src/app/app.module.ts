@@ -9,6 +9,7 @@ import {AuthService} from './auth.service';
 import { AppRouterModule } from './/app-router.module';
 import { AuthGuardGuard } from './guard/auth-guard.guard';
 import { RestService } from './rest.service';
+import { WidgetComponent } from './dashboard/widget/widget.component';
 @NgModule({
 
   exports: [],
@@ -16,7 +17,8 @@ import { RestService } from './rest.service';
   declarations: [
     AppComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    WidgetComponent
   ],
   imports: [
     BrowserModule,

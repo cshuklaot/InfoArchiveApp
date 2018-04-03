@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpHeaderResponse, HttpResponse } from '@angular/common/http';
 import { HttpRequest } from 'selenium-webdriver/http';
 import { AuthInfo } from './AuthInfo';
 import { Observable } from 'rxjs/Observable';
@@ -25,13 +25,17 @@ export class RestService {
     return auth.token_type + ' ' + auth.access_token;
   }
   dopost(url: string, payload: any) {
-    return this.execute(this.http.post(url, payload, { headers: this.headers }),url).subscribe();
+    return this.execute(this.http.post(url, payload, { headers: this.headers }),url); 
   }
   doGet(url: string) {
     return this.execute(this.http.get(url, { headers: this.headers }),url);
   }
-
-  execute(observable:Observable<any>,url:string='')
+  getBinary(url: string) {
+    let reqHeaders = new Headers({ 'Content-Type': 'application/json' });
+    return this.http.get(url, { headers: this.headers , responseType: 'blob', observe: 'response' });
+    }
+  
+  execute(observable:Observable<any>,url:string)
   {
    return observable.pipe(
       tap(_obj => console.log(`request to url=${url} was successful`)),
@@ -68,6 +72,6 @@ export class RestService {
           formData.append("extraField", JSON.stringify(extraData));
         
       }
-      return this.dopost(apiCreateEndpoint,formData)
+      return this.dopost(apiCreateEndpoint,formData).subscribe();
     }
 }
