@@ -120,7 +120,7 @@ export class DashboardComponent implements OnInit {
                       this.restService.dopost("/parse/schema", formData).subscribe(
                         (app: any) => {
                           this.datamodel = app;
-                          this.refreshFormGroup();
+                         this.refreshFormGroup();
                         })
                     },
                   )

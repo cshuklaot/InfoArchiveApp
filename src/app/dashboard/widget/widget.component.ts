@@ -8,9 +8,8 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./widget.component.css']
 })
 export class WidgetComponent  {
-
-  constructor() { }
+  type:string;
+  constructor() {}
   @Input() inputmodel: InputDataModel;
   @Input() form: FormGroup;
-
 }
