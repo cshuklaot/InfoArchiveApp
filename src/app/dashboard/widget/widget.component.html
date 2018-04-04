@@ -1,5 +1,10 @@
-<div class="form-group" [formGroup]="form">
+<div class="form-group" [formGroup]="form" [ngClass]="{
+  'has-error': this.formControl.status==='INVALID' , 
+  'has-success':this.formControl.status==='VALID' && this.formControl.dirty
+}">
   <label for="{{inputmodel.name}}">{{inputmodel.name}}</label>
-    <input type="{{inputmodel.type}}" name='{{inputmodel.name}}' class="form-control" 
-      [formControlName]="inputmodel.name"/>
+  <input type="{{inputmodel.type}}"  class="form-control" [formControlName]="inputmodel.name" placeholder="Type Here"
+  />
+
+
 </div>

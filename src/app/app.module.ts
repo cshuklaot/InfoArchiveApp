@@ -11,6 +11,7 @@ import { AppRouterModule } from './/app-router.module';
 import { AuthGuardGuard } from './guard/auth-guard.guard';
 import { RestService } from './rest.service';
 import { WidgetComponent } from './dashboard/widget/widget.component';
+
 @NgModule({
 
   exports: [],
@@ -37,3 +38,4 @@ import { WidgetComponent } from './dashboard/widget/widget.component';
   bootstrap: [AppComponent],
 })
 export class AppModule { }
+

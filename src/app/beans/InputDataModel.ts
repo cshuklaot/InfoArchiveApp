@@ -2,8 +2,8 @@ export class InputDataModel
 {
     name:string
     type:string;
-    maxlength:number;
-    minlength:number;
+    maxLength:number;
+    minLength:number;
     maxvalue:number;
     minvalue:number;
     isReapeating:boolean;

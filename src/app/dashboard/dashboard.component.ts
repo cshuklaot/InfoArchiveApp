@@ -8,7 +8,7 @@ import { restObject } from '../beans/restObject';
 import { InputDataModel } from '../beans/InputDataModel';
 import { returnModel } from '../beans/returnModel';
 import { NgModule } from '@angular/core';
-import { NgForm, Validators } from '@angular/forms';
+import { NgForm, Validators, ValidatorFn } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
 
 const APPLICATION_KEY = 'http://identifiers.emc.com/applications';
@@ -120,7 +120,7 @@ export class DashboardComponent implements OnInit {
                       this.restService.dopost("/parse/schema", formData).subscribe(
                         (app: any) => {
                           this.datamodel = app;
-                         this.refreshFormGroup();
+                          //this.refreshFormGroup();
                         })
                     },
                   )
@@ -131,13 +131,12 @@ export class DashboardComponent implements OnInit {
       );
     console.log(pdiSchemas);
   }
-  refreshFormGroup() {
+ /*  refreshFormGroup() {
     this.datamodel.simpleModels.forEach
       (simple => {
-        this.form.addControl(simple.name, new FormControl(simple.name, <any>Validators));
+        this.form.addControl(simple.name, new FormControl('', this.getvalidators(simple)));
       })
-    }
-
+  } */
   getRestChildObject(rest: restObject, key: String) {
     return this.restService.doGet(rest.map.get(key).replace(/^(?:\/\/|[^\/]+)*\//, ""));
   }
@@ -150,7 +149,7 @@ export class DashboardComponent implements OnInit {
     //this.loading = true;
     this.restService.fileUpload(this.fileToUpload, {
       'formInfo': this.form.value,
-      'InputModel':this.datamodel
+      'InputModel': this.datamodel
     });
 
   }
