@@ -10,7 +10,6 @@ import { FormGroup } from '@angular/forms';
 export class WidgetComponent  {
 
   constructor() { }
-
   @Input() inputmodel: InputDataModel;
   @Input() form: FormGroup;
 

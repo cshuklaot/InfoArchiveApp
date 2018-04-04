@@ -147,11 +147,10 @@ export class DashboardComponent implements OnInit {
   }
   upload(form: NgForm) {
     console.log(this.form.value);
-    this.loading = true;
+    //this.loading = true;
     this.restService.fileUpload(this.fileToUpload, {
-      'tanent': this.selectedTanent.name,
-      'application': this.selectedApplication.name,
-      'holding': this.selectedHolding.name
+      'formInfo': this.form.value,
+      'InputModel':this.datamodel
     });
 
   }
@@ -160,7 +159,6 @@ export class DashboardComponent implements OnInit {
   }
   handleFileInput(files: FileList) {
     let fileItem = files.item(0);
-    console.log("file input has changed. The file is", fileItem)
     this.fileToUpload = fileItem;
   }
 }

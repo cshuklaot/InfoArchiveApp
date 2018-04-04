@@ -1,6 +1,5 @@
 <div class="form-group" [formGroup]="form">
   <label for="{{inputmodel.name}}">{{inputmodel.name}}</label>
-  <label for="{{inputmodel.type}}">{{inputmodel.type}}</label>
   <div *ngIf="inputmodel.type==='date'" ng-form=formdata.name [formGroup]="form"> 
     <input type="date" name='{{inputmodel.name}}' class="form-control"  [formControlName]="inputmodel.name"/>
   </div>
