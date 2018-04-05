@@ -27,15 +27,15 @@ export class RestService {
   dopost(url: string, payload: any) {
     return this.execute(this.http.post(url, payload, { headers: this.headers }),url); 
   }
-  dopostwithContentType(url: string, payload: any, contenttype:string) {
-    let reqHeaders = new HttpHeaders({ 'Content-Type': contenttype });
-    return this.execute(this.http.post(url, payload, { headers: reqHeaders}),url); 
-  }
+ 
+    postBinary(url: string, payload: any) {
+      return this.execute(this.http.post(url, payload, { headers: this.headers , responseType: 'blob', observe: 'response' }),url); 
+    }
+ 
   doGet(url: string) {
     return this.execute(this.http.get(url, { headers: this.headers }),url);
   }
   getBinary(url: string) {
-    let reqHeaders = new Headers({ 'Content-Type': 'application/json' });
     return this.http.get(url, { headers: this.headers , responseType: 'blob', observe: 'response' });
     }
   
@@ -65,16 +65,5 @@ export class RestService {
       return of(result as T);
     };
   }
-  fileUpload(fileItem:File, extraData?:any):any
-    {
-      console.log(extraData);
-      let apiCreateEndpoint = 'upload/store/'
-      const formData: FormData = new FormData();
-      formData.append('files', fileItem, fileItem.name);
-      if (extraData) {
-        formData.append("formInfo", JSON.stringify( extraData.formInfo));
-        formData.append("InputModel",JSON.stringify(extraData.InputModel));
-      }
-      return this.dopost(apiCreateEndpoint,formData).subscribe();
-    }
+  
 }

@@ -10,12 +10,13 @@ import { returnModel } from '../beans/returnModel';
 import { NgModule } from '@angular/core';
 import { NgForm, Validators, ValidatorFn } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
-
+import { saveAs } from 'file-saver/FileSaver';
 const APPLICATION_KEY = 'http://identifiers.emc.com/applications';
 const HOLDINGS_KEY = 'http://identifiers.emc.com/holdings';
 const SCHEMA_URL_KEY = 'http://identifiers.emc.com/pdi-schemas';
 const CONTENTS_KEY = 'http://identifiers.emc.com/contents';
 const CONTENTS_DOWNLOAD_KEY = 'http://identifiers.emc.com/content-download';
+const apiCreateEndpoint = 'upload/store/'
 
 @Component({
   selector: 'app-dashboard',
@@ -66,8 +67,10 @@ export class DashboardComponent implements OnInit {
       subscribe(
         (app: any) =>
           app._embedded.applications.forEach(element => {
-            let t = new application(element);
-            this.appliactions.push(t);
+            if (element.archiveType === 'SIP') {
+              let t = new application(element);
+              this.appliactions.push(t);
+            }
           })
       );
   }
@@ -131,12 +134,12 @@ export class DashboardComponent implements OnInit {
       );
     console.log(pdiSchemas);
   }
- /*  refreshFormGroup() {
-    this.datamodel.simpleModels.forEach
-      (simple => {
-        this.form.addControl(simple.name, new FormControl('', this.getvalidators(simple)));
-      })
-  } */
+  /*  refreshFormGroup() {
+     this.datamodel.simpleModels.forEach
+       (simple => {
+         this.form.addControl(simple.name, new FormControl('', this.getvalidators(simple)));
+       })
+   } */
   getRestChildObject(rest: restObject, key: String) {
     return this.restService.doGet(rest.map.get(key).replace(/^(?:\/\/|[^\/]+)*\//, ""));
   }
@@ -144,14 +147,30 @@ export class DashboardComponent implements OnInit {
   getcontent(rest: restObject, key: String) {
     return this.restService.getBinary(rest.map.get(key).replace(/^(?:\/\/|[^\/]+)*\//, ""));
   }
-  upload(form: NgForm) {
+  upload() {
     console.log(this.form.value);
-    //this.loading = true;
-    this.restService.fileUpload(this.fileToUpload, {
-      'formInfo': this.form.value,
-      'InputModel': this.datamodel
-    });
+    let formdata = this.prepareformdata();
+    this.restService.postBinary(apiCreateEndpoint, formdata).
+      subscribe(
+        data => this.saveToFileSystem(data)),
+      error => console.log("Error downloading the file."),
+      () => console.info("OK")
+  }
 
+  private saveToFileSystem(response) {
+    const contentDispositionHeader: string = response.headers.get('Content-Disposition');
+    const parts: string[] = contentDispositionHeader.split(';');
+    const filename = parts[1].split('=')[1];
+    const blob = new Blob([response.body], { type: 'text/plain' });
+    saveAs(blob, filename);
+  }
+  prepareformdata(): FormData {
+    const formData: FormData = new FormData();
+    formData.append('files', this.fileToUpload, this.fileToUpload.name);
+    formData.append("formInfo", JSON.stringify(this.form.value));
+    formData.append("InputModel", JSON.stringify(this.datamodel));
+    console.log(formData);
+    return formData;
   }
   clean(array: Array<any>) {
     return array.splice(0, array.length);
