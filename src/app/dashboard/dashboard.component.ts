@@ -152,7 +152,8 @@ export class DashboardComponent implements OnInit {
     let formdata = this.prepareformdata();
     this.restService.postBinary(apiCreateEndpoint, formdata).
       subscribe(
-        data => this.saveToFileSystem(data)),
+      //   data => this.saveToFileSystem(data)
+    ),
       error => console.log("Error downloading the file."),
       () => console.info("OK")
   }
